@@ -4,6 +4,7 @@ import gzip
 from dateutil.parser import parse as parse_date
 from xml.etree import ElementTree
 
+__version__ = "1.0"
 
 class Book(object):
     """
