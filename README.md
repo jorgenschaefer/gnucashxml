@@ -10,6 +10,9 @@ transactions and splits. It does not support scheduled transactions,
 price tables, and likely none but the most basic commodities. In
 particular, writing of XML files is not supported.
 
+[python]: http://www.python.org/
+[gnu cash]: http://www.gnucash.org/
+
 ## Usage
 
 The interface is intended to allow quickly writing reports using
@@ -51,3 +54,4 @@ for account, subaccounts, splits in book.walk():
 print "Total income : {:9.2f}".format(income_total * -1)
 print "Total expense: {:9.2f}".format(expense_total)
 ```
+
