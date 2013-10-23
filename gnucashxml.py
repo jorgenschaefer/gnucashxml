@@ -25,6 +25,7 @@ from xml.etree import ElementTree
 
 __version__ = "1.0"
 
+
 class Book(object):
     """
     A book is the main container for GNU Cash data.
@@ -105,6 +106,11 @@ class Account(object):
             children = list(acc.children)
             yield (acc, children, acc.splits)
             accounts.extend(children)
+
+    def find_account(self, name):
+        for account, children, splits in self.walk():
+            if account.name == name:
+                return account
 
     def get_all_splits(self):
         split_list = []
