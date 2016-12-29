@@ -183,7 +183,12 @@ class Split(object):
 
 def from_filename(filename):
     """Parse a GNU Cash file and return a Book object."""
-    return parse(gzip.open(filename, "rb"))
+    try:
+        # try opening with gzip decompression
+        return parse(gzip.open(filename, "rb"))
+    except IOError:
+        # try opening without decompression
+        return parse(open(filename, "rb"))
 
 
 # Implemented:
