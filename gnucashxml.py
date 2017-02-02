@@ -137,7 +137,7 @@ class Transaction(object):
         self.slots = slots or {}
 
     def __repr__(self):
-        return u"<Transaction {}>".format(self.guid)
+        return "<Transaction {}>".format(self.guid)
 
     def __lt__(self, other):
         # For sorted() only
@@ -237,7 +237,7 @@ def _book_from_tree(tree):
             root_account = acc
         accountdict[acc.guid] = acc
         parentdict[acc.guid] = parent_guid
-    for acc in accountdict.values():
+    for acc in list(accountdict.values()):
         if acc.parent is None and acc.actype != 'ROOT':
             parent = accountdict[parentdict[acc.guid]]
             acc.parent = parent
@@ -412,7 +412,7 @@ def _slots_from_tree(tree):
         value = elt.find(slot + "value")
         type_ = value.get('type', 'string')
         if type_ == 'integer':
-            slots[key] = long(value.text)
+            slots[key] = int(value.text)
         elif type_ == 'numeric':
             slots[key] = _parse_number(value.text)
         elif type_ in ('string', 'guid'):
