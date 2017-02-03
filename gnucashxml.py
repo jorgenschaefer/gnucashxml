@@ -411,7 +411,7 @@ def _slots_from_tree(tree):
         key = elt.find(slot + "key").text
         value = elt.find(slot + "value")
         type_ = value.get('type', 'string')
-        if type_ == 'integer':
+        if type_ in ('integer', 'double'):
             slots[key] = int(value.text)
         elif type_ == 'numeric':
             slots[key] = _parse_number(value.text)
