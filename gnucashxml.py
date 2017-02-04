@@ -88,8 +88,18 @@ class Account(object):
         self.splits = []
         self.slots = slots or {}
 
+    def fullname(self):
+        if self.parent:
+            pfn = self.parent.fullname()
+            if pfn:
+                return '{}:{}'.format(pfn, self.name)
+            else:
+                return self.name
+        else:
+            return ''
+    
     def __repr__(self):
-        return "<Account {}>".format(self.guid)
+        return "<Account '{}' {}...>".format(self.name, self.guid[:10])
 
     def walk(self):
         """
@@ -137,7 +147,7 @@ class Transaction(object):
         self.slots = slots or {}
 
     def __repr__(self):
-        return "<Transaction {}>".format(self.guid)
+        return "<Transaction on {} '{}' {}...>".format(self.date, self.description, self.guid[:6])
 
     def __lt__(self, other):
         # For sorted() only
@@ -167,7 +177,11 @@ class Split(object):
         self.slots = slots
 
     def __repr__(self):
-        return "<Split {}>".format(self.guid)
+        return "<Split {} '{}' {} {} {}...>".format(self.transaction.date, 
+            self.transaction.description, 
+            self.transaction.currency,
+            self.value, 
+            self.guid[:6])
 
     def __lt__(self, other):
         # For sorted() only
